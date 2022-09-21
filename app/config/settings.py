@@ -84,7 +84,6 @@ DATABASES = {
         'PORT': os.environ['MYSQL_PORT'],
     }
 }
-print(DATABASES)
 
 
 # Password validation
