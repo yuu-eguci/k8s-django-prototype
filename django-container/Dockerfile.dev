@@ -4,6 +4,7 @@ FROM python:3.10-alpine
 WORKDIR /app
 
 RUN apk update && \
+    apk add mariadb-dev gcc libc-dev && \
     pip install --upgrade pip setuptools && \
     pip install pipenv
 
@@ -11,8 +12,9 @@ ENV DJANGO_SECRET_KEY "!45034yo1buc$jsp)&ayr@xckjwv790631-5de17m9c!hsrnz#n"
 ENV MYSQL_DATABASE "app"
 ENV MYSQL_USER "root"
 ENV MYSQL_PASSWORD "LocalRootPassword"
-ENV MYSQL_HOSTNAME "mysql-container"
-ENV MYSQL_PORT "3366"
+ENV MYSQL_HOSTNAME "k8s-django-prototype-mysql-container"
+# NOTE: mysql-container では 3366:3306 設定。内部側のポートを書くみたい。
+ENV MYSQL_PORT "3306"
 ENV APP_HOST "k8s-django-prototype-django-container"
 
 # NOTE: このポートを解放する意図である、というドキュメントとして機能するコマンドです。
