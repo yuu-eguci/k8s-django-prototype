@@ -34,6 +34,9 @@ services:
     tty: true
     stdin_open: true
     volumes:
+      # アプリケーションのソースコードをホストと共有。
       - ./app:/app
+      # pipenv 仮想環境をホストと共有。 Container recreation のたびに仮想環境を作り直す手間を省くことが目的。
+      - ./python-packages:/root/.local/share
     depends_on:
       - mysql-service
