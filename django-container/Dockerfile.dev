@@ -1,0 +1,20 @@
+# 他の image はこちら https://hub.docker.com/_/python
+FROM python:3.10-alpine
+
+WORKDIR /app
+
+RUN apk update && \
+    pip install --upgrade pip setuptools && \
+    pip install pipenv
+
+ENV DJANGO_SECRET_KEY "!45034yo1buc$jsp)&ayr@xckjwv790631-5de17m9c!hsrnz#n"
+ENV MYSQL_DATABASE "app"
+ENV MYSQL_USER "root"
+ENV MYSQL_PASSWORD "LocalRootPassword"
+ENV MYSQL_HOSTNAME "mysql-container"
+ENV MYSQL_PORT "3366"
+ENV APP_HOST "k8s-django-prototype-django-container"
+
+# NOTE: このポートを解放する意図である、というドキュメントとして機能するコマンドです。
+#       ポートを実際に解放するコマンドではありません。
+EXPOSE 8000
