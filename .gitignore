@@ -131,6 +131,5 @@ dmypy.json
 *~
 *#
 .DS_Store
-.vscode
 db/
 python-packages/

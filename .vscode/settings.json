@@ -1,0 +1,9 @@
+{
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#293102",
+        "titleBar.activeBackground": "#394502",
+        "titleBar.activeForeground": "#F7FDD8"
+    },
+    "python.autoComplete.extraPaths": ["./python-packages/virtualenvs/app-4PlAip0Q/lib/python3.10/site-packages/"],
+    "python.analysis.extraPaths": ["./python-packages/virtualenvs/app-4PlAip0Q/lib/python3.10/site-packages/"]
+}
