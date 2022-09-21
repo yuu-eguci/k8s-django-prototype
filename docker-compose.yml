@@ -7,7 +7,7 @@ services:
 
   # service name (ほかから参照するとき使うので重要です。)
   mysql-service:
-    # NOTE: container name conflict を防ぐため mrrhp- をつけている。
+    # NOTE: container name conflict を防ぐため repository name をつけている。
     container_name: k8s-django-prototype-mysql-container
     build: ./mysql-container
     # NOTE: 他のプロジェクトの mysql との重複を避けるため、変更している。
@@ -17,8 +17,3 @@ services:
       - ./db/mysql_data:/var/lib/mysql
       - ./db/mysql_log:/var/log/mysql
       - ./db/mysql_conf:/etc/mysql/conf.d
-    environment:
-      - MYSQL_DATABASE=app
-      - MYSQL_USER=LocalAdmin
-      - MYSQL_PASSWORD=LocalAdminPassword
-      - MYSQL_ROOT_PASSWORD=LocalRootPassword

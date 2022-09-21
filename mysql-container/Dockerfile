@@ -6,6 +6,12 @@ FROM mysql:8.0
 # WARN: RUN だとエラーになります。
 CMD [ "mysqld", "--collation-server=utf8mb4_general_ci" ]
 
+# print
+ENV MYSQL_DATABASE "app"
+ENV MYSQL_USER "LocalAdmin"
+ENV MYSQL_PASSWORD "LocalAdminPassword"
+ENV MYSQL_ROOT_PASSWORD "LocalRootPassword"
+
 # NOTE: このポートを解放する意図である、というドキュメントとして機能するコマンドです。
 #       ポートを実際に解放するコマンドではありません。
 EXPOSE 3306
