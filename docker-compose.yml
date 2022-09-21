@@ -1,0 +1,24 @@
+# docker-compose.yml のファイルフォーマットです。
+# https://docs.docker.com/compose/compose-file/#compose-and-docker-compatibility-matrix
+version: '3.8'
+
+# service = container
+services:
+
+  # service name (ほかから参照するとき使うので重要です。)
+  mysql-service:
+    # NOTE: container name conflict を防ぐため mrrhp- をつけている。
+    container_name: k8s-django-prototype-mysql-container
+    build: ./mysql-container
+    # NOTE: 他のプロジェクトの mysql との重複を避けるため、変更している。
+    ports:
+      - 3366:3306
+    volumes:
+      - ./db/mysql_data:/var/lib/mysql
+      - ./db/mysql_log:/var/log/mysql
+      - ./db/mysql_conf:/etc/mysql/conf.d
+    environment:
+      - MYSQL_DATABASE=app
+      - MYSQL_USER=LocalAdmin
+      - MYSQL_PASSWORD=LocalAdminPassword
+      - MYSQL_ROOT_PASSWORD=LocalRootPassword
