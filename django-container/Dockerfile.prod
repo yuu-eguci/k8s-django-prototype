@@ -1,0 +1,34 @@
+# 他の image はこちら https://hub.docker.com/_/python
+FROM python:3.10-alpine
+
+WORKDIR /app
+
+# アプリケーションのソースを app ディレクトリへコピー。
+# NOTE: この相対パスのベースは、 Dockerfile のあるディレクトリではなく、 context に設定したディレクトリ。
+COPY ./app/ /app
+
+RUN apk update && \
+    apk add mariadb-dev gcc libc-dev && \
+    pip install --upgrade pip setuptools && \
+    pip install pipenv && \
+    pipenv sync
+
+ENV SECRET_KEY "y)cb--h1&nfl0v@k-&k4)cl1$%@29-fa#p!b%-2mn+timbf^*y"
+ENV MYSQL_DATABASE "app"
+ENV MYSQL_USER "root"
+ENV MYSQL_PASSWORD "ProductionRootPassword"
+# NOTE: Ingress 環境では変わる気がする……
+ENV MYSQL_HOSTNAME "k8s-django-prototype-mysql-container-production"
+# NOTE: mysql-container では 3366:3306 設定。内部側のポートを書くみたい。
+ENV MYSQL_PORT "3306"
+# NOTE: Ingress 環境では変わる気がする……
+ENV APP_HOST "k8s-django-prototype-django-container-production"
+
+# NOTE: ここで実際は uwsgi?
+# NOTE: 最後の python3 は、元 Dockerfile に従っている。
+#       uwsgi を導入したら python3 は不要になるはず。
+CMD ["sh", "-c", "ls && python3"]
+
+# NOTE: このポートを解放する意図である、というドキュメントとして機能するコマンドです。
+#       ポートを実際に解放するコマンドではありません。
+EXPOSE 8000

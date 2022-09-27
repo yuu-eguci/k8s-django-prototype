@@ -1,0 +1,16 @@
+# NOTE: AWS RDS の MySQL バージョンに合わせています。
+FROM mysql:8.0
+
+# NOTE: 8.0 から default collation が utf8mb4_0900_ai_ci です。
+#       日本語の collation として曖昧さが目立つので変更しています。
+# WARN: RUN だとエラーになります。
+CMD [ "mysqld", "--collation-server=utf8mb4_general_ci" ]
+
+ENV MYSQL_DATABASE "app"
+ENV MYSQL_USER "ProductionAdmin"
+ENV MYSQL_PASSWORD "ProductionAdminPassword"
+ENV MYSQL_ROOT_PASSWORD "ProductionRootPassword"
+
+# NOTE: このポートを解放する意図である、というドキュメントとして機能するコマンドです。
+#       ポートを実際に解放するコマンドではありません。
+EXPOSE 3306
