@@ -27,7 +27,7 @@ ENV APP_HOST "k8s-django-prototype-django-container-production"
 # NOTE: ここで実際は uwsgi?
 # NOTE: 最後の python3 は、元 Dockerfile に従っている。
 #       uwsgi を導入したら python3 は不要になるはず。
-CMD ["sh", "-c", "ls && python3"]
+CMD ["sh", "-c", "ls && pipenv run python manage.py runserver 0.0.0.0:8000"]
 
 # NOTE: このポートを解放する意図である、というドキュメントとして機能するコマンドです。
 #       ポートを実際に解放するコマンドではありません。

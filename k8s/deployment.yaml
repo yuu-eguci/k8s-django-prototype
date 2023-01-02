@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+  labels:
+    app: mysql-app
+spec:
+  replicas: 1
+  # 別のファイルからコレを指定するときのセレクタ
+  selector:
+    matchLabels:
+      app: mysql
+  # 宸豪もわからん
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql-container
+        image: k8s-django-prototype-mysql-image:v0.1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3306
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django-deployment
+  labels:
+    app: django-app
+spec:
+  replicas: 1
+  # 別のファイルからコレを指定するときのセレクタ
+  selector:
+    matchLabels:
+      app: django
+  # 宸豪もわからん
+  template:
+    metadata:
+      labels:
+        app: django
+    spec:
+      containers:
+      - name: django-container
+        image: k8s-django-prototype-django-image:v0.1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8000

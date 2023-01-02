@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service-mysql
+spec:
+  type: NodePort
+  # deployment.yaml の metadata labels app で指定。
+  selector:
+    app: mysql-app
+  ports:
+  - protocol: TCP
+    port: 3377
+    targetPort: 3306
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service-django
+spec:
+  type: NodePort
+  # deployment.yaml の metadata labels app で指定。
+  selector:
+    app: django-app
+  ports:
+  - protocol: TCP
+    port: 8999
+    targetPort: 8000
